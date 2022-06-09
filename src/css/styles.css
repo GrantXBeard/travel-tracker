@@ -1,3 +1,52 @@
-body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+body,
+html {
+  background: #d7d3d1;
+  font-family: "Inter", sans-serif;
+  height: 100vh;
+  margin: 0px;
+}
+
+header {
+  align-items: center;
+  background-color: #ff9670;
+  display: flex;
+  height: 20%;
+  justify-content: space-between;
+}
+
+.right {
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrow {
+  font-size: 20vh;
+  margin-top: 30%;
+}
+
+.trips-button,
+.create-button {
+  height: 39px;
+  width: 149px;
+  background-color: #ffd2be;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  float: left;
+}
+
+.trips-button:hover,
+.create-button:hover {
+  background-color: #ff9670;
+  border-color: black;
+  border: 1px;
+}
+
+.hidden {
+  display: none;
 }

@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
-</body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Tracker</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <button class="trips-button">MY TRIPS</button>
+        <button class="create-button">PLAN A TRIP</button>
+      </nav>
+      <p class="arrow">↙</p>
+      <h2>Welcome back Username 😵‍💫</h2>
+      <p class="arrow">↗</p>
+      <h1>Travel Tracker</h1>
+    </header>
+    <main>
+      <section class="all-trips">
+        <section class="trips-buttons">
+          <button class="all-trips-button">ALL TRIPS</button>
+          <button class="future-trips-button">FUTURE TRIPS</button
+          ><button class="pending-trips-button">PENDING TRIPS</button>
+        </section>
+        <section class="display">
+          <article class="saved-cards-grid">
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+            <article class="trip-card"></article>
+          </article>
+        </section>
+      </section>
+      <section class="create-trip hidden">
+        <form class="add-trip-form">
+          <label for="calendar">Select start date here:</label>
+          <input
+            class="calendar-start"
+            id="calendar"
+            type="date"
+            name="calendar"
+            min=""
+            value=""
+            required
+          />
+          <label for="calendar">Select end date here:</label>
+          <input
+            class="calendar-end"
+            id="calendar"
+            type="date"
+            name="calendar"
+            min=""
+            value=""
+            required
+          />
+        </form>
+      </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
 </html>

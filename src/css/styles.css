@@ -13,21 +13,23 @@ header {
   height: 20%;
   justify-content: space-between;
 }
+nav {
+  margin-left: 5%;
+}
 
-.right {
-  flex-direction: row;
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+h1 {
+  margin-right: 5%;
 }
 
 .arrow {
   font-size: 20vh;
-  margin-top: 30%;
 }
 
 .trips-button,
-.create-button {
+.create-button,
+.all-trips-button,
+.future-trips-button,
+.pending-trips-button {
   height: 39px;
   width: 149px;
   background-color: #ffd2be;
@@ -43,10 +45,33 @@ header {
 .trips-button:hover,
 .create-button:hover {
   background-color: #ff9670;
-  border-color: black;
-  border: 1px;
+}
+
+.all-trips-button:hover,
+.future-trips-button:hover,
+.pending-trips-button:hover {
+  background-color: #d7d3d1;
 }
 
 .hidden {
   display: none;
+}
+
+.all-trips {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.saved-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  padding: 20px;
+}
+
+.trip-card {
+  background-color: #ffd2be;
+  width: 340px;
+  height: 400px;
 }

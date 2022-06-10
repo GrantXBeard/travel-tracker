@@ -26,4 +26,14 @@ const loadData = () => {
   let randomTavelerTrips = tripsRepository.getTrips(randomIndex);
   let currentTraveler = new Traveler(randomTavelerData, randomTavelerTrips);
   console.log(currentTraveler);
+  startApplication(currentTraveler);
+};
+
+const startApplication = (user) => {
+  showWelcome(user);
+};
+
+const showWelcome = (user) => {
+  let welcome = document.querySelector(".welcome");
+  welcome.innerText = `Welcome back ${user.returnUserFirstName()}`;
 };

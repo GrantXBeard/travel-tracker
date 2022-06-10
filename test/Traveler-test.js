@@ -45,4 +45,8 @@ describe("Traveler", () => {
       },
     ]);
   });
+
+  it("should be able to return the travelers first name", () => {
+    expect(traveler12.returnUserFirstName()).to.equal("Lannie");
+  });
 });

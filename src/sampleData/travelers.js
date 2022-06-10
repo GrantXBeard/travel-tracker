@@ -1,4 +1,4 @@
-const travelers = [
+export const travelers = [
   {
     id: 1,
     name: "Ham Leadbeater",

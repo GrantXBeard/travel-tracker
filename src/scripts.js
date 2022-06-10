@@ -1,10 +1,39 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+//Imports//
 import "./css/styles.css";
+import { travelers } from "../src/sampleData/travelers";
+import { trips } from "../src/sampleData/trips";
+import TravelersRepository from "../src/TravelersRepository";
+import TripsRepository from "../src/TripsRepository";
+import Traveler from "../src/Traveler.js";
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import "./images/turing-logo.png";
+//Global variables//
 
-console.log("This is the JavaScript entry file - your code begins here.");
+//Event Listeners//
+window.addEventListener("load", (event) => {
+  loadData();
+});
+
+//Functions//
+const getRandomIndex = (array) => {
+  return Math.floor(Math.random() * array.length);
+};
+
+const loadData = () => {
+  let travelersRepository = new TravelersRepository(travelers);
+  let randomIndex = getRandomIndex(travelersRepository.travelers);
+  let randomTavelerData = travelersRepository.getSingleTraveler(randomIndex);
+  let tripsRepository = new TripsRepository(trips);
+  let randomTavelerTrips = tripsRepository.getTrips(randomIndex);
+  let currentTraveler = new Traveler(randomTavelerData, randomTavelerTrips);
+  console.log(currentTraveler);
+  startApplication(currentTraveler);
+};
+
+const startApplication = (user) => {
+  showWelcome(user);
+};
+
+const showWelcome = (user) => {
+  let welcome = document.querySelector(".welcome");
+  welcome.innerText = `Welcome back ${user.returnUserFirstName()}`;
+};

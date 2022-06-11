@@ -12,9 +12,26 @@ import Traveler from "../src/Traveler.js";
 //Global variables//
 let currentTraveler, destinationsArray;
 
+//Query Selectors//
+const allTripsButton = document.querySelector(".all-trips-button");
+const futureTripsButton = document.querySelector(".future-trips-button");
+const pendingTripsButton = document.querySelector(".pending-trips-button");
+
 //Event Listeners//
 window.addEventListener("load", (event) => {
   loadData();
+});
+
+allTripsButton.addEventListener("click", (event) => {
+  displayTrips(currentTraveler.displayArray);
+});
+
+futureTripsButton.addEventListener("click", (event) => {
+  displayTrips(currentTraveler.createStatusArray("approved"));
+});
+
+pendingTripsButton.addEventListener("click", (event) => {
+  displayTrips(currentTraveler.createStatusArray("pending"));
 });
 
 //Functions//
@@ -46,8 +63,8 @@ const loadData = () => {
 
 const startApplication = (user, destinationsData) => {
   showWelcome(user);
-  createTripObjects(user, destinationsData);
-  displayTrips();
+  user.createDisplayArray(destinationsData);
+  displayTrips(user.displayArray);
   console.log(user);
 };
 
@@ -56,33 +73,11 @@ const showWelcome = (user) => {
   welcome.innerText = `Welcome back ${user.returnUserFirstName()}`;
 };
 
-const createTripObjects = (user, destinationsData) => {
-  let displayArray = user.trips.reduce((acc, curr) => {
-    destinationsData.forEach((dest) => {
-      if (dest.id === curr.destinationID) {
-        const flightCost = dest.estimatedFlightCostPerPerson * curr.duration;
-        const lodgeCost = dest.estimatedLodgingCostPerDay * curr.duration;
-        const obj = {
-          img: dest.image,
-          alt: dest.alt,
-          name: dest.destination,
-          dates: curr.date,
-          price: (flightCost + lodgeCost) * curr.travelers,
-          status: curr.status,
-          amountTravelers: curr.travelers,
-        };
-        acc.push(obj);
-      }
-    });
-    return acc;
-  }, []);
-  user.displayArray = displayArray;
-};
-
-const displayTrips = () => {
+const displayTrips = (array) => {
   let savedCardsGrid = document.querySelector(".saved-cards-grid");
-  currentTraveler.displayArray.forEach((trip) => {
-    savedCardsGrid.innerHTML += `
+  let newHTML = "";
+  array.forEach((trip) => {
+    newHTML += `
       <article class="trip-card">
         <img
           class="card-img"
@@ -90,11 +85,12 @@ const displayTrips = () => {
           alt="${trip.alt}"
         />
         <p class="card">${trip.name}</p>
-        <p class="card">Durration: <b>9</b> days</p>
         <p class="card">${trip.dates}</p>
-        <p class="card">${trip.price}</p>
-        <p class="card">${trip.status}</p>
+        <p class="card">Durration: <b>${trip.duration}</b> days</p>
+        <p class="card">Price: $${trip.price}</p>
+        <p class="card">Status: ${trip.status}</p>
         <p class="card">Travelers: <b>${trip.amountTravelers}</b></p>
       </article>`;
   });
+  savedCardsGrid.innerHTML = newHTML;
 };

@@ -141,12 +141,12 @@ export const trips = [
   },
   {
     id: 15,
-    userID: 50,
+    userID: 12,
     destinationID: 13,
     travelers: 3,
     date: "2022/07/04",
     duration: 6,
-    status: "approved",
+    status: "pending",
     suggestedActivities: [],
   },
   {
@@ -171,7 +171,7 @@ export const trips = [
   },
   {
     id: 18,
-    userID: 18,
+    userID: 12,
     destinationID: 2,
     travelers: 2,
     date: "2022/09/25",

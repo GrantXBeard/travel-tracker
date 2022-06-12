@@ -28,6 +28,7 @@ h1 {
 .trips-button,
 .create-button,
 .all-trips-button,
+.past-trips-button,
 .future-trips-button,
 .pending-trips-button {
   height: 39px;
@@ -48,13 +49,10 @@ h1 {
 }
 
 .all-trips-button:hover,
+.past-trips-button:hover,
 .future-trips-button:hover,
 .pending-trips-button:hover {
   background-color: #d7d3d1;
-}
-
-.hidden {
-  display: none;
 }
 
 .trips {
@@ -82,4 +80,34 @@ h1 {
 
 .card {
   margin-left: 15px;
+}
+
+.create-trip {
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: #ffd2be;
+  width: 400px;
+  height: 400px;
+}
+
+.add-trip-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 300px;
+}
+
+.cal {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }

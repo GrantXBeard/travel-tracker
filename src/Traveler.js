@@ -16,9 +16,9 @@ class Traveler {
     }
   }
 
-  createDisplayArray(destinationsData) {
+  createDisplayArray(destinationsArray) {
     this.displayArray = this.trips.reduce((acc, cur) => {
-      destinationsData.forEach((dest) => {
+      destinationsArray.forEach((dest) => {
         if (dest.id === cur.destinationID) {
           const flightCost = dest.estimatedFlightCostPerPerson * cur.duration;
           const lodgeCost = dest.estimatedLodgingCostPerDay * cur.duration;
@@ -28,7 +28,7 @@ class Traveler {
             name: dest.destination,
             dates: cur.date,
             duration: cur.duration,
-            price: (flightCost + lodgeCost) * cur.travelers,
+            price: (flightCost + lodgeCost) * cur.travelers * 0.1,
             status: cur.status,
             amountTravelers: cur.travelers,
           };

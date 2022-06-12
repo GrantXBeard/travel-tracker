@@ -19,38 +19,46 @@
     </header>
     <main>
       <section class="trips">
-        <section class="trip-choice-buttons">
+        <section class="trip-choice-buttons hidden">
           <button class="all-trips-button">ALL TRIPS</button>
           <button class="future-trips-button">FUTURE TRIPS</button
           ><button class="pending-trips-button">PENDING TRIPS</button>
         </section>
-        <section class="display">
+        <section class="display hidden">
           <article class="saved-cards-grid"></article>
         </section>
       </section>
-      <section class="create-trip hidden">
-        <form class="add-trip-form">
-          <label for="calendar">Select start date here:</label>
-          <input
-            class="calendar-start"
-            id="calendar"
-            type="date"
-            name="calendar"
-            min=""
-            value=""
-            required
-          />
-          <label for="calendar">Select end date here:</label>
-          <input
-            class="calendar-end"
-            id="calendar"
-            type="date"
-            name="calendar"
-            min=""
-            value=""
-            required
-          />
-        </form>
+      <section class="create-trip">
+        <section class="form-wrapper">
+          <form class="add-trip-form" id="tripPlanner">
+            <select
+              class="destination"
+              name="destination"
+              id="planDestination"
+              required
+            ></select>
+            <label for="calendar">Select start date here:</label>
+            <input
+              class="calendar-start"
+              id="calendar"
+              type="date"
+              name="calendar"
+              min=""
+              value=""
+              required
+            />
+            <label for="calendar">Select end date here:</label>
+            <input
+              class="calendar-end"
+              id="calendar"
+              type="date"
+              name="calendar"
+              min=""
+              value=""
+              required
+            />
+          </form>
+        </section>
       </section>
     </main>
     <script src="bundle.js"></script>

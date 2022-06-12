@@ -83,3 +83,25 @@ h1 {
 .card {
   margin-left: 15px;
 }
+
+.create-trip {
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: #ffd2be;
+  width: 400px;
+  height: 400px;
+}
+
+.add-trip-form {
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 300px;
+}

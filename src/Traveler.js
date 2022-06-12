@@ -1,3 +1,5 @@
+const dayjs = require("dayjs");
+
 class Traveler {
   constructor(travelerData, trips) {
     this.id = travelerData.id;
@@ -22,13 +24,15 @@ class Traveler {
         if (dest.id === cur.destinationID) {
           const flightCost = dest.estimatedFlightCostPerPerson * cur.duration;
           const lodgeCost = dest.estimatedLodgingCostPerDay * cur.duration;
+          const price = (flightCost + lodgeCost) * cur.travelers;
+          const fee = (flightCost + lodgeCost) * cur.travelers * 0.1;
           const obj = {
             img: dest.image,
             alt: dest.alt || dest.destination,
             name: dest.destination,
             dates: cur.date,
             duration: cur.duration,
-            price: (flightCost + lodgeCost) * cur.travelers * 0.1,
+            price: price + fee,
             status: cur.status,
             amountTravelers: cur.travelers,
           };
@@ -41,6 +45,21 @@ class Traveler {
 
   createStatusArray(status) {
     return this.displayArray.filter((trip) => trip.status === status);
+  }
+
+  createPastArray() {
+    let today = dayjs().format("YYYY/MM/DD");
+    return this.displayArray.filter((trip) => trip.dates < today);
+  }
+
+  createPresentArray() {
+    let today = dayjs().format("YYYY/MM/DD");
+    return this.displayArray.filter((trip) => trip.dates === today);
+  }
+
+  createFutureArray() {
+    let today = dayjs().format("YYYY/MM/DD");
+    return this.displayArray.filter((trip) => trip.dates > today);
   }
 }
 

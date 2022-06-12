@@ -45,6 +45,57 @@ describe("Traveler", () => {
     expect(traveler12.displayArray.length).to.equal(3);
   });
 
+  it("should be able to return a new array of past trips", () => {
+    traveler12.createDisplayArray(destinations);
+    expect(traveler12.createPastArray()).to.deep.equal([
+      {
+        img:
+          "https://images.unsplash.com/photo-1535776142635-8fa180c46af7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2756&q=80",
+        alt: "Toronto, Canada",
+        name: "Toronto, Canada",
+        dates: "2022/01/28",
+        duration: 18,
+        price: 10692,
+        status: "approved",
+        amountTravelers: 1,
+      },
+    ]);
+  });
+
+  it("should be able to return a new array of present trips", () => {
+    traveler12.createDisplayArray(destinations);
+    expect(traveler12.createPresentArray()).to.deep.equal([]);
+  });
+
+  it("should be able to return a new array of future trips", () => {
+    traveler12.createDisplayArray(destinations);
+    expect(traveler12.createFutureArray()).to.deep.equal([
+      {
+        img:
+          "https://images.unsplash.com/photo-1556543697-2fb00d31948a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        alt:
+          "buildings and people crossing the street carrying shoping bags during the day",
+        name: "St. Petersburg, Russia",
+        dates: "2022/07/04",
+        duration: 6,
+        price: 23760,
+        status: "pending",
+        amountTravelers: 3,
+      },
+      {
+        img:
+          "https://images.unsplash.com/photo-1560089168-6516081f5bf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+        alt: "city with boats on the water during the day time",
+        name: "Stockholm, Sweden",
+        dates: "2022/09/25",
+        duration: 17,
+        price: 32912,
+        status: "approved",
+        amountTravelers: 2,
+      },
+    ]);
+  });
+
   it("should be able return a new array based on the status of the trips", () => {
     traveler12.createDisplayArray(destinations);
     expect(traveler12.createStatusArray("approved")).to.deep.equal([
@@ -55,7 +106,7 @@ describe("Traveler", () => {
         name: "Stockholm, Sweden",
         dates: "2022/09/25",
         duration: 17,
-        price: 29920,
+        price: 32912,
         status: "approved",
         amountTravelers: 2,
       },
@@ -66,7 +117,7 @@ describe("Traveler", () => {
         name: "Toronto, Canada",
         dates: "2022/01/28",
         duration: 18,
-        price: 9720,
+        price: 10692,
         status: "approved",
         amountTravelers: 1,
       },
@@ -80,7 +131,7 @@ describe("Traveler", () => {
         name: "St. Petersburg, Russia",
         dates: "2022/07/04",
         duration: 6,
-        price: 21600,
+        price: 23760,
         status: "pending",
         amountTravelers: 3,
       },

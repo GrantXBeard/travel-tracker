@@ -28,6 +28,7 @@ h1 {
 .trips-button,
 .create-button,
 .all-trips-button,
+.past-trips-button,
 .future-trips-button,
 .pending-trips-button {
   height: 39px;
@@ -48,13 +49,10 @@ h1 {
 }
 
 .all-trips-button:hover,
+.past-trips-button:hover,
 .future-trips-button:hover,
 .pending-trips-button:hover {
   background-color: #d7d3d1;
-}
-
-.hidden {
-  display: none;
 }
 
 .trips {
@@ -99,9 +97,17 @@ h1 {
 }
 
 .add-trip-form {
-  margin: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 300px;
+}
+
+.cal {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }

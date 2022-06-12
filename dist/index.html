@@ -19,42 +19,58 @@
     </header>
     <main>
       <section class="trips">
-        <section class="trip-choice-buttons hidden">
+        <section class="trip-choice-buttons">
           <button class="all-trips-button">ALL TRIPS</button>
+          <button class="past-trips-button">PAST TRIPS</button>
           <button class="future-trips-button">FUTURE TRIPS</button
           ><button class="pending-trips-button">PENDING TRIPS</button>
         </section>
-        <section class="display hidden">
+        <section class="display">
           <article class="saved-cards-grid"></article>
         </section>
       </section>
-      <section class="create-trip">
+      <section class="create-trip hidden">
         <section class="form-wrapper">
+          <h2 class="hidden">Hello!</h2>
           <form class="add-trip-form" id="tripPlanner">
+            <label for="destination"></label>
             <select
               class="destination"
               name="destination"
               id="planDestination"
               required
             ></select>
-            <label for="calendar">Select start date here:</label>
+            <div class="cal">
+              <label for="calendar">Select start date here:</label>
+              <input
+                class="calendar-start"
+                id="calendar"
+                type="date"
+                name="calendar"
+                min=""
+                value=""
+                required
+              />
+            </div>
+            <div class="cal">
+              <label for="calendar">Select end date here:</label>
+              <input
+                class="calendar-end"
+                id="calendar"
+                type="date"
+                name="calendar"
+                min=""
+                value=""
+                required
+              />
+            </div>
+            <label for="numberOfTravelers"></label>
             <input
-              class="calendar-start"
-              id="calendar"
-              type="date"
-              name="calendar"
-              min=""
-              value=""
-              required
-            />
-            <label for="calendar">Select end date here:</label>
-            <input
-              class="calendar-end"
-              id="calendar"
-              type="date"
-              name="calendar"
-              min=""
-              value=""
+              class="number-of-travelers"
+              id="numberTravelers"
+              type="number"
+              placeholder="Number of travelers"
+              name="numberTravelers"
               required
             />
           </form>

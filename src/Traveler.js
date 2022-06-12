@@ -28,7 +28,7 @@ class Traveler {
             name: dest.destination,
             dates: cur.date,
             duration: cur.duration,
-            price: (flightCost + lodgeCost) * cur.travelers,
+            price: (flightCost + lodgeCost) * cur.travelers * 0.1,
             status: cur.status,
             amountTravelers: cur.travelers,
           };

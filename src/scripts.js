@@ -1,10 +1,10 @@
 //Imports//
 import "./css/styles.css";
 
-import { fetchAll } from "./apiCalls.js";
-import { travelers } from "../src/sampleData/travelers";
-import { trips } from "../src/sampleData/trips";
-import { destinations } from "../src/sampleData/destinations";
+import { fetchAll, postNewTrip } from "./apiCalls.js";
+// import { travelers } from "../src/sampleData/travelers";
+// import { trips } from "../src/sampleData/trips";
+// import { destinations } from "../src/sampleData/destinations";
 import TravelersRepository from "../src/TravelersRepository";
 import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
@@ -14,6 +14,7 @@ let currentTraveler, destinationsArray;
 
 //Query Selectors//
 const allTripsButton = document.querySelector(".all-trips-button");
+const pastTripsButton = document.querySelector(".past-trips-button");
 const futureTripsButton = document.querySelector(".future-trips-button");
 const pendingTripsButton = document.querySelector(".pending-trips-button");
 
@@ -25,6 +26,8 @@ window.addEventListener("load", (event) => {
 allTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.displayArray);
 });
+
+pastTripsButton.addEventListener("click", (event) => {});
 
 futureTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.createStatusArray("approved"));
@@ -38,7 +41,7 @@ pendingTripsButton.addEventListener("click", (event) => {
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 30;
+      const id = 35;
       const [travelersData, tripsData, destinationsDataObj] = data;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
@@ -104,4 +107,14 @@ const displayTrips = (array) => {
       </article>`;
   });
   savedCardsGrid.innerHTML = newHTML;
+};
+
+const createFormDataObj = () => {};
+
+const addHidden = (variable) => {
+  variable.classList.add("hidden");
+};
+
+const remmoveHidden = (variable) => {
+  variable.classList.remove("hidden");
 };

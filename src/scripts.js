@@ -7,7 +7,7 @@ import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
 
 //Global variables//
-let currentTraveler, destinationsArray;
+let currentTraveler, destinationsArray, tripID, formDataObj;
 
 //Query Selectors//
 const allTripsButton = document.querySelector(".all-trips-button");
@@ -15,6 +15,7 @@ const pastTripsButton = document.querySelector(".past-trips-button");
 const currentTripsButton = document.querySelector(".current-trips-button");
 const futureTripsButton = document.querySelector(".future-trips-button");
 const pendingTripsButton = document.querySelector(".pending-trips-button");
+const submitFormButton = document.querySelector(".submit");
 
 //Event Listeners//
 window.addEventListener("load", (event) => {
@@ -41,12 +42,18 @@ pendingTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.createStatusArray("pending"));
 });
 
+submitFormButton.addEventListener("submit", (event) => {
+  createFormDataObj();
+  event.preventDefault();
+});
+
 //Functions//
 const loadData = () => {
   fetchAll()
     .then((data) => {
       const id = 1;
       const [travelersData, tripsData, destinationsDataObj] = data;
+      tripID = tripsData.trips.length;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
         travelersData.travelers
@@ -113,7 +120,23 @@ const displayTrips = (array) => {
   savedCardsGrid.innerHTML = newHTML;
 };
 
-const createFormDataObj = () => {};
+const createFormDataObj = () => {
+  const destination = document.querySelector();
+  const startDate = document.querySelector();
+  const endDate = document.querySelector();
+  const numbTravelers = document.querySelector();
+  formDataObj = {
+    id: tripID + 1,
+    userID: currentTraveler.id,
+    destinationID: formData.destinationID,
+    travelers: numbTravelers,
+    date: null,
+    duration: null,
+    status: "pending",
+    suggestedActivities: [],
+  };
+  console.log(formDataObj);
+};
 
 const addHidden = (variable) => {
   variable.classList.add("hidden");

@@ -10,16 +10,28 @@ import Traveler from "../src/Traveler.js";
 let currentTraveler, destinationsArray, tripID, formDataObj;
 
 //Query Selectors//
+const showTripsButton = document.querySelector(".trips-button");
+const showFormButton = document.querySelector(".create-button");
 const allTripsButton = document.querySelector(".all-trips-button");
 const pastTripsButton = document.querySelector(".past-trips-button");
 const currentTripsButton = document.querySelector(".current-trips-button");
 const futureTripsButton = document.querySelector(".future-trips-button");
 const pendingTripsButton = document.querySelector(".pending-trips-button");
 const submitFormButton = document.querySelector(".submit");
+const tripsPage = document.querySelector(".trips");
+const formPage = document.querySelector(".create-trip");
 
 //Event Listeners//
 window.addEventListener("load", (event) => {
   loadData();
+});
+
+showTripsButton.addEventListener("click", (event) => {
+  showtrips();
+});
+
+showFormButton.addEventListener("click", (event) => {
+  showForm();
 });
 
 allTripsButton.addEventListener("click", (event) => {
@@ -42,9 +54,9 @@ pendingTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.createStatusArray("pending"));
 });
 
-submitFormButton.addEventListener("submit", (event) => {
-  createFormDataObj();
+submitFormButton.addEventListener("click", (event) => {
   event.preventDefault();
+  createFormDataObj();
 });
 
 //Functions//
@@ -110,7 +122,7 @@ const displayTrips = (array) => {
           alt="${trip.alt}"
         />
         <p class="card">${trip.name}</p>
-        <p class="card">${trip.dates}</p>
+        <p class="card">${trip.startDate}</p>
         <p class="card">Durration: <b>${trip.duration}</b> days</p>
         <p class="card">Price: $${trip.price}</p>
         <p class="card">Status: ${trip.status}</p>
@@ -121,17 +133,20 @@ const displayTrips = (array) => {
 };
 
 const createFormDataObj = () => {
-  const destination = document.querySelector();
-  const startDate = document.querySelector();
-  const endDate = document.querySelector();
-  const numbTravelers = document.querySelector();
+  const destination = document.querySelector(".destination");
+  const destinationID = destinationsArray.find(
+    (dest) => dest.destination === destination.value
+  );
+  const startDate = document.querySelector(".calendar-start");
+  const duration = document.querySelector(".number-of-days");
+  const numbTravelers = document.querySelector(".number-of-travelers");
   formDataObj = {
     id: tripID + 1,
     userID: currentTraveler.id,
-    destinationID: formData.destinationID,
-    travelers: numbTravelers,
-    date: null,
-    duration: null,
+    destinationID: destinationID.id,
+    travelers: parseInt(numbTravelers.value),
+    date: startDate.value,
+    duration: parseInt(duration.value),
     status: "pending",
     suggestedActivities: [],
   };
@@ -142,6 +157,16 @@ const addHidden = (variable) => {
   variable.classList.add("hidden");
 };
 
-const remmoveHidden = (variable) => {
+const removeHidden = (variable) => {
   variable.classList.remove("hidden");
+};
+
+const showForm = () => {
+  removeHidden(formPage);
+  addHidden(tripsPage);
+};
+
+const showtrips = () => {
+  removeHidden(tripsPage);
+  addHidden(formPage);
 };

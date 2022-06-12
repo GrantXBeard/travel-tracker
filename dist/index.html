@@ -42,7 +42,7 @@
               required
             ></select>
             <div class="cal">
-              <label for="calendar">Select start date here:</label>
+              <label for="calendar-start">Select start date here:</label>
               <input
                 class="calendar-start"
                 id="calendar"
@@ -53,25 +53,22 @@
                 required
               />
             </div>
-            <div class="cal">
-              <label for="calendar">Select end date here:</label>
-              <input
-                class="calendar-end"
-                id="calendar"
-                type="date"
-                name="calendar"
-                min=""
-                value=""
-                required
-              />
-            </div>
+            <label for="numberOfdays"></label>
+            <input
+              class="number-of-days"
+              id="numberOfdays"
+              type="number"
+              placeholder="Duration in days"
+              name="numberOfdays"
+              required
+            />
             <label for="numberOfTravelers"></label>
             <input
               class="number-of-travelers"
-              id="numberTravelers"
+              id="numberOfTravelers"
               type="number"
               placeholder="Number of travelers"
-              name="numberTravelers"
+              name="numberOfTravelers"
               required
             />
             <input

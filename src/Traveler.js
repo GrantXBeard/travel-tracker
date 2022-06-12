@@ -22,15 +22,15 @@ class Traveler {
     this.displayArray = this.trips.reduce((acc, cur) => {
       destinationsArray.forEach((dest) => {
         if (dest.id === cur.destinationID) {
-          const flightCost = dest.estimatedFlightCostPerPerson * cur.duration;
+          const flightCost = dest.estimatedFlightCostPerPerson * cur.travelers;
           const lodgeCost = dest.estimatedLodgingCostPerDay * cur.duration;
-          const price = (flightCost + lodgeCost) * cur.travelers;
-          const fee = (flightCost + lodgeCost) * cur.travelers * 0.1;
+          const price = flightCost + lodgeCost;
+          const fee = price * 0.1;
           const obj = {
             img: dest.image,
             alt: dest.alt || dest.destination,
             name: dest.destination,
-            dates: cur.date,
+            startDate: cur.date,
             duration: cur.duration,
             price: price + fee,
             status: cur.status,
@@ -49,17 +49,17 @@ class Traveler {
 
   createPastArray() {
     let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.dates < today);
+    return this.displayArray.filter((trip) => trip.startDate < today);
   }
 
   createPresentArray() {
     let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.dates === today);
+    return this.displayArray.filter((trip) => trip.startDate === today);
   }
 
   createFutureArray() {
     let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.dates > today);
+    return this.displayArray.filter((trip) => trip.startDate > today);
   }
 }
 

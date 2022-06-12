@@ -29,6 +29,7 @@ h1 {
 .create-button,
 .all-trips-button,
 .past-trips-button,
+.current-trips-button,
 .future-trips-button,
 .pending-trips-button {
   height: 39px;
@@ -50,6 +51,7 @@ h1 {
 
 .all-trips-button:hover,
 .past-trips-button:hover,
+.current-trips-button:hover,
 .future-trips-button:hover,
 .pending-trips-button:hover {
   background-color: #d7d3d1;
@@ -75,7 +77,8 @@ h1 {
 }
 
 .card-img {
-  width: 100%;
+  width: 340px;
+  height: 254;
 }
 
 .card {

@@ -2,47 +2,70 @@
 import "./css/styles.css";
 
 import { fetchAll, postNewTrip } from "./apiCalls.js";
-// import { travelers } from "../src/sampleData/travelers";
-// import { trips } from "../src/sampleData/trips";
-// import { destinations } from "../src/sampleData/destinations";
 import TravelersRepository from "../src/TravelersRepository";
 import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
 
 //Global variables//
-let currentTraveler, destinationsArray;
+let currentTraveler, destinationsArray, tripID, formDataObj;
 
 //Query Selectors//
+const showTripsButton = document.querySelector(".trips-button");
+const showFormButton = document.querySelector(".create-button");
 const allTripsButton = document.querySelector(".all-trips-button");
 const pastTripsButton = document.querySelector(".past-trips-button");
+const currentTripsButton = document.querySelector(".current-trips-button");
 const futureTripsButton = document.querySelector(".future-trips-button");
 const pendingTripsButton = document.querySelector(".pending-trips-button");
+const submitFormButton = document.querySelector(".submit");
+const tripsPage = document.querySelector(".trips");
+const formPage = document.querySelector(".create-trip");
 
 //Event Listeners//
 window.addEventListener("load", (event) => {
   loadData();
 });
 
+showTripsButton.addEventListener("click", (event) => {
+  showtrips();
+});
+
+showFormButton.addEventListener("click", (event) => {
+  showForm();
+});
+
 allTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.displayArray);
 });
 
-pastTripsButton.addEventListener("click", (event) => {});
+pastTripsButton.addEventListener("click", (event) => {
+  displayTrips(currentTraveler.createPastArray());
+});
+
+currentTripsButton.addEventListener("click", (event) => {
+  displayTrips(currentTraveler.createPresentArray());
+});
 
 futureTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createStatusArray("approved"));
+  displayTrips(currentTraveler.createFutureArray());
 });
 
 pendingTripsButton.addEventListener("click", (event) => {
   displayTrips(currentTraveler.createStatusArray("pending"));
 });
 
+submitFormButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  createFormDataObj();
+});
+
 //Functions//
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 35;
+      const id = 1;
       const [travelersData, tripsData, destinationsDataObj] = data;
+      tripID = tripsData.trips.length;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
         travelersData.travelers
@@ -55,8 +78,8 @@ const loadData = () => {
     })
     .then(({ currentTraveler, destinationsArray }) => {
       startApplication(currentTraveler, destinationsArray);
-    });
-  // .catch((error) => console.log(`There has been an error! ${error}`));
+    })
+    .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
 const startApplication = (user, destinationsArray) => {
@@ -99,7 +122,7 @@ const displayTrips = (array) => {
           alt="${trip.alt}"
         />
         <p class="card">${trip.name}</p>
-        <p class="card">${trip.dates}</p>
+        <p class="card">${trip.startDate}</p>
         <p class="card">Durration: <b>${trip.duration}</b> days</p>
         <p class="card">Price: $${trip.price}</p>
         <p class="card">Status: ${trip.status}</p>
@@ -109,12 +132,41 @@ const displayTrips = (array) => {
   savedCardsGrid.innerHTML = newHTML;
 };
 
-const createFormDataObj = () => {};
+const createFormDataObj = () => {
+  const destination = document.querySelector(".destination");
+  const destinationID = destinationsArray.find(
+    (dest) => dest.destination === destination.value
+  );
+  const startDate = document.querySelector(".calendar-start");
+  const duration = document.querySelector(".number-of-days");
+  const numbTravelers = document.querySelector(".number-of-travelers");
+  formDataObj = {
+    id: tripID + 1,
+    userID: currentTraveler.id,
+    destinationID: destinationID.id,
+    travelers: parseInt(numbTravelers.value),
+    date: startDate.value,
+    duration: parseInt(duration.value),
+    status: "pending",
+    suggestedActivities: [],
+  };
+  console.log(formDataObj);
+};
 
 const addHidden = (variable) => {
   variable.classList.add("hidden");
 };
 
-const remmoveHidden = (variable) => {
+const removeHidden = (variable) => {
   variable.classList.remove("hidden");
+};
+
+const showForm = () => {
+  removeHidden(formPage);
+  addHidden(tripsPage);
+};
+
+const showtrips = () => {
+  removeHidden(tripsPage);
+  addHidden(formPage);
 };

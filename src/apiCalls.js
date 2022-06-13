@@ -1,9 +1,11 @@
+import { reloadData } from "./scripts.js";
+
 let apiTravelersData, apiTripsData, apiDestinationsDataObj;
 
 const fetchData = (dataSet) => {
-  return fetch(`http://localhost:3001/api/v1/${dataSet}`)
-    .then((response) => response.json())
-    .catch((error) => console.log(dataSet));
+  return fetch(`http://localhost:3001/api/v1/${dataSet}`).then((response) =>
+    response.json()
+  );
 };
 
 export const fetchAll = () => {
@@ -15,7 +17,7 @@ export const fetchAll = () => {
 
 export const postNewTrip = (formData) => {
   fetch("http://localhost:3001/api/v1/trips", {
-    methos: "POST",
+    method: "POST",
     body: JSON.stringify({
       id: formData.id,
       userID: formData.userID,
@@ -24,7 +26,7 @@ export const postNewTrip = (formData) => {
       date: formData.date,
       duration: formData.duration,
       status: formData.status,
-      suggestedActivities: [],
+      suggestedActivities: formData.suggestedActivities,
     }),
     headers: { "Content-type": "application/json" },
   })
@@ -34,4 +36,21 @@ export const postNewTrip = (formData) => {
       console.log(error.message);
       displayErrorMessage(error);
     });
+};
+
+const throwError = (res) => {
+  if (!res.ok) {
+    throw new Error("Please make sure all fields are filled out.");
+  } else {
+    return res.json();
+  }
+};
+
+const displayErrorMessage = (error) => {
+  const postError = document.querySelector(".error-box");
+  if (error.message === "Failed to fetch") {
+    return (postError.innerText = "OOPS something went wrong");
+  } else {
+    return (postError.innerText = error.message);
+  }
 };

@@ -7,7 +7,7 @@ import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
 
 //Global variables//
-let currentTraveler, destinationsArray, tripID, formDataObj;
+let currentTraveler, tripsRepository, destinationsArray, formDataObj;
 
 //Query Selectors//
 const showTripsButton = document.querySelector(".trips-button");
@@ -21,6 +21,7 @@ const submitFormButton = document.querySelector(".submit");
 const tripsPage = document.querySelector(".trips");
 const formPage = document.querySelector(".create-trip");
 const form = document.querySelector(".form-wrapper");
+const mockUpDisplay = document.querySelector(".display-submission");
 
 //Event Listeners//
 window.addEventListener("load", (event) => {
@@ -60,27 +61,46 @@ submitFormButton.addEventListener("click", (event) => {
   showMockUp(createFormDataObj());
 });
 
+formPage.addEventListener("click", (event) => {
+  checkClick(event);
+});
+
 //Functions//
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 1;
+      const id = 11;
       const [travelersData, tripsData, destinationsDataObj] = data;
-      tripID = tripsData.trips.length;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
         travelersData.travelers
       );
-      const traveler11Data = travelersRepository.getSingleTraveler(id);
-      const tripsRepository = new TripsRepository(tripsData.trips);
-      const traveler11Trips = tripsRepository.getTrips(id);
-      currentTraveler = new Traveler(traveler11Data, traveler11Trips);
+      const currentTravelerData = travelersRepository.getSingleTraveler(id);
+      tripsRepository = new TripsRepository(tripsData.trips);
+      const currentTravelerTrips = tripsRepository.getTrips(id);
+      currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
       return { currentTraveler, destinationsArray };
     })
     .then(({ currentTraveler, destinationsArray }) => {
       startApplication(currentTraveler, destinationsArray);
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
+};
+
+export const reloadData = () => {
+  fetchAll().then((data) => {
+    const [travelersData, tripsData, destinationsDataObj] = data;
+
+    const travelersRepository = new TravelersRepository(
+      travelersData.travelers
+    );
+    const currentTravelerData = travelersRepository.getSingleTraveler(
+      currentTraveler.id
+    );
+    tripsRepository = new TripsRepository(tripsData.trips);
+    const currentTravelerTrips = tripsRepository.getTrips(currentTraveler.id);
+    startApplication(currentTraveler, destinationsArray);
+  });
 };
 
 const startApplication = (user, destinationsArray) => {
@@ -147,16 +167,16 @@ const createFormDataObj = () => {
     destination.estimatedLodgingCostPerDay * parseInt(duration.value);
   const price = flightCost + lodgeCost;
   const fee = price * 0.1;
-  const formDataObj = {
+  formDataObj = {
     img: destination.image,
     alt: destination.alt || destination.destination,
     name: destination.destination,
     price: price + fee,
-    id: tripID + 1,
+    id: tripsRepository.trips.length + 1,
     userID: currentTraveler.id,
     destinationID: destination.id,
     travelers: parseInt(numbTravelers.value),
-    date: startDate.value,
+    date: startDate.value.split("-").join("/"),
     duration: parseInt(duration.value),
     status: "pending",
     suggestedActivities: [],
@@ -165,7 +185,6 @@ const createFormDataObj = () => {
 };
 
 const showMockUp = (formObj) => {
-  const mockUpDisplay = document.querySelector(".display-submission");
   let newHTML = `
   <article class="mock-up">
     <img class="card-img" src="${formObj.img}" alt="${formObj.alt}" />
@@ -175,10 +194,20 @@ const showMockUp = (formObj) => {
     <p class="card">Travelers: <b>${formObj.travelers}</b></p>
     <p class="card">After agent fees, the total cost of this trip will be $<b>${formObj.price}</b>
   </article>
-  <button class="form-choice">Submit Request</button>
-  <button class="form-choice">Cancel</button>`;
+  <button class="form-choice" id="request">Submit Request</button>
+  <button class="form-choice" id="cancel">Cancel</button>`;
   mockUpDisplay.innerHTML = newHTML;
   addHidden(form);
+};
+
+const checkClick = (event) => {
+  if (event.target.id === "request") {
+    postNewTrip(formDataObj);
+  }
+  if (event.target.id === "cancel") {
+    mockUpDisplay.innerHTML = "";
+    removeHidden(form);
+  }
 };
 
 const addHidden = (variable) => {

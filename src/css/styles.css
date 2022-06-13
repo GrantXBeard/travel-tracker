@@ -31,7 +31,8 @@ h1 {
 .past-trips-button,
 .current-trips-button,
 .future-trips-button,
-.pending-trips-button {
+.pending-trips-button,
+.form-choice {
   height: 39px;
   width: 149px;
   background-color: #ffd2be;
@@ -57,6 +58,15 @@ h1 {
   background-color: #d7d3d1;
 }
 
+.form-choice {
+  width: 170px;
+  background-color: #ff9670;
+}
+
+.form-choice:hover {
+  background-color: #ffd2be;
+}
+
 .trips {
   display: flex;
   flex-direction: column;
@@ -70,7 +80,8 @@ h1 {
   padding: 20px;
 }
 
-.trip-card {
+.trip-card,
+.mock-up {
   background-color: #ffd2be;
   width: 340px;
   height: 475px;

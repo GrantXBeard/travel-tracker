@@ -26,6 +26,7 @@
           <button class="future-trips-button">FUTURE TRIPS</button
           ><button class="pending-trips-button">PENDING TRIPS</button>
         </section>
+        <p class="error-box"></p>
         <section class="display">
           <article class="saved-cards-grid"></article>
         </section>
@@ -34,35 +35,33 @@
         <section class="form-wrapper">
           <h2 class="hidden">Hello!</h2>
           <form class="add-trip-form" id="tripPlanner">
-            <label for="destination"></label>
+            <label for="destination">Choose a destination</label>
             <select
               class="destination"
               name="destination"
-              id="planDestination"
+              id="destination"
               required
             ></select>
-            <div class="cal">
-              <label for="calendar-start">Select start date here:</label>
-              <input
-                class="calendar-start"
-                id="calendar"
-                type="date"
-                name="calendar"
-                min=""
-                value=""
-                required
-              />
-            </div>
-            <label for="numberOfdays"></label>
+            <label for="calendarStart">Choose start date</label>
             <input
-              class="number-of-days"
-              id="numberOfdays"
-              type="number"
-              placeholder="Duration in days"
-              name="numberOfdays"
+              class="calendar-start"
+              id="calendarStart"
+              type="date"
+              name="calendarStart"
+              min=""
+              value=""
               required
             />
-            <label for="numberOfTravelers"></label>
+            <label for="numberOfDays">Choose duration</label>
+            <input
+              class="number-of-days"
+              id="numberOfDays"
+              type="number"
+              placeholder="Duration in days"
+              name="numberOfDays"
+              required
+            />
+            <label for="numberOfTravelers">Choose number of travelers</label>
             <input
               class="number-of-travelers"
               id="numberOfTravelers"
@@ -79,6 +78,7 @@
             />
           </form>
         </section>
+        <section class="display-submission"></section>
       </section>
     </main>
     <script src="bundle.js"></script>

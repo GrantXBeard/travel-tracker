@@ -7,7 +7,7 @@ import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
 
 //Global variables//
-let currentTraveler, destinationsArray, tripID, formDataObj;
+let currentTraveler, tripsRepository, destinationsArray, formDataObj;
 
 //Query Selectors//
 const showTripsButton = document.querySelector(".trips-button");
@@ -20,6 +20,8 @@ const pendingTripsButton = document.querySelector(".pending-trips-button");
 const submitFormButton = document.querySelector(".submit");
 const tripsPage = document.querySelector(".trips");
 const formPage = document.querySelector(".create-trip");
+const form = document.querySelector(".form-wrapper");
+const mockUpDisplay = document.querySelector(".display-submission");
 
 //Event Listeners//
 window.addEventListener("load", (event) => {
@@ -56,30 +58,49 @@ pendingTripsButton.addEventListener("click", (event) => {
 
 submitFormButton.addEventListener("click", (event) => {
   event.preventDefault();
-  createFormDataObj();
+  showMockUp(createFormDataObj());
+});
+
+formPage.addEventListener("click", (event) => {
+  checkClick(event);
 });
 
 //Functions//
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 1;
+      const id = 11;
       const [travelersData, tripsData, destinationsDataObj] = data;
-      tripID = tripsData.trips.length;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
         travelersData.travelers
       );
-      const traveler11Data = travelersRepository.getSingleTraveler(id);
-      const tripsRepository = new TripsRepository(tripsData.trips);
-      const traveler11Trips = tripsRepository.getTrips(id);
-      currentTraveler = new Traveler(traveler11Data, traveler11Trips);
+      const currentTravelerData = travelersRepository.getSingleTraveler(id);
+      tripsRepository = new TripsRepository(tripsData.trips);
+      const currentTravelerTrips = tripsRepository.getTrips(id);
+      currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
       return { currentTraveler, destinationsArray };
     })
     .then(({ currentTraveler, destinationsArray }) => {
       startApplication(currentTraveler, destinationsArray);
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
+};
+
+export const reloadData = () => {
+  fetchAll().then((data) => {
+    const [travelersData, tripsData, destinationsDataObj] = data;
+
+    const travelersRepository = new TravelersRepository(
+      travelersData.travelers
+    );
+    const currentTravelerData = travelersRepository.getSingleTraveler(
+      currentTraveler.id
+    );
+    tripsRepository = new TripsRepository(tripsData.trips);
+    const currentTravelerTrips = tripsRepository.getTrips(currentTraveler.id);
+    startApplication(currentTraveler, destinationsArray);
+  });
 };
 
 const startApplication = (user, destinationsArray) => {
@@ -121,8 +142,8 @@ const displayTrips = (array) => {
           src="${trip.img}"
           alt="${trip.alt}"
         />
-        <p class="card">${trip.name}</p>
-        <p class="card">${trip.startDate}</p>
+        <p class="card"><b>${trip.name}</b></p>
+        <p class="card">Start date: ${trip.startDate}</p>
         <p class="card">Durration: <b>${trip.duration}</b> days</p>
         <p class="card">Price: $${trip.price}</p>
         <p class="card">Status: ${trip.status}</p>
@@ -133,24 +154,60 @@ const displayTrips = (array) => {
 };
 
 const createFormDataObj = () => {
-  const destination = document.querySelector(".destination");
-  const destinationID = destinationsArray.find(
-    (dest) => dest.destination === destination.value
+  const destinationInput = document.querySelector(".destination");
+  const destination = destinationsArray.find(
+    (dest) => dest.destination === destinationInput.value
   );
   const startDate = document.querySelector(".calendar-start");
   const duration = document.querySelector(".number-of-days");
   const numbTravelers = document.querySelector(".number-of-travelers");
+  const flightCost =
+    destination.estimatedFlightCostPerPerson * parseInt(numbTravelers.value);
+  const lodgeCost =
+    destination.estimatedLodgingCostPerDay * parseInt(duration.value);
+  const price = flightCost + lodgeCost;
+  const fee = price * 0.1;
   formDataObj = {
-    id: tripID + 1,
+    img: destination.image,
+    alt: destination.alt || destination.destination,
+    name: destination.destination,
+    price: price + fee,
+    id: tripsRepository.trips.length + 1,
     userID: currentTraveler.id,
-    destinationID: destinationID.id,
+    destinationID: destination.id,
     travelers: parseInt(numbTravelers.value),
-    date: startDate.value,
+    date: startDate.value.split("-").join("/"),
     duration: parseInt(duration.value),
     status: "pending",
     suggestedActivities: [],
   };
-  console.log(formDataObj);
+  return formDataObj;
+};
+
+const showMockUp = (formObj) => {
+  let newHTML = `
+  <article class="mock-up">
+    <img class="card-img" src="${formObj.img}" alt="${formObj.alt}" />
+    <p class="card"><b>${formObj.name}</b></p>
+    <p class="card">Start date: ${formObj.date}</p>
+    <p class="card">Durration: <b>${formObj.duration}</b> days</p>
+    <p class="card">Travelers: <b>${formObj.travelers}</b></p>
+    <p class="card">After agent fees, the total cost of this trip will be $<b>${formObj.price}</b>
+  </article>
+  <button class="form-choice" id="request">Submit Request</button>
+  <button class="form-choice" id="cancel">Cancel</button>`;
+  mockUpDisplay.innerHTML = newHTML;
+  addHidden(form);
+};
+
+const checkClick = (event) => {
+  if (event.target.id === "request") {
+    postNewTrip(formDataObj);
+  }
+  if (event.target.id === "cancel") {
+    mockUpDisplay.innerHTML = "";
+    removeHidden(form);
+  }
 };
 
 const addHidden = (variable) => {

@@ -41,15 +41,15 @@ allTripsButton.addEventListener("click", (event) => {
 });
 
 pastTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createPastArray());
+  displayTrips(currentTraveler.createTimeArray("past"));
 });
 
 currentTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createPresentArray());
+  displayTrips(currentTraveler.createTimeArray("present"));
 });
 
 futureTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createFutureArray());
+  displayTrips(currentTraveler.createTimeArray("future"));
 });
 
 pendingTripsButton.addEventListener("click", (event) => {

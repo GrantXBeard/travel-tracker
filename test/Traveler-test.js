@@ -47,7 +47,7 @@ describe("Traveler", () => {
 
   it("should be able to return a new array of past trips", () => {
     traveler12.createDisplayArray(destinations);
-    expect(traveler12.createPastArray()).to.deep.equal([
+    expect(traveler12.createTimeArray("past")).to.deep.equal([
       {
         img:
           "https://images.unsplash.com/photo-1535776142635-8fa180c46af7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2756&q=80",
@@ -64,12 +64,12 @@ describe("Traveler", () => {
 
   it("should be able to return a new array of present trips", () => {
     traveler12.createDisplayArray(destinations);
-    expect(traveler12.createPresentArray()).to.deep.equal([]);
+    expect(traveler12.createTimeArray("present")).to.deep.equal([]);
   });
 
   it("should be able to return a new array of future trips", () => {
     traveler12.createDisplayArray(destinations);
-    expect(traveler12.createFutureArray()).to.deep.equal([
+    expect(traveler12.createTimeArray("future")).to.deep.equal([
       {
         img:
           "https://images.unsplash.com/photo-1556543697-2fb00d31948a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",

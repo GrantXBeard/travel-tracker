@@ -45,6 +45,11 @@ describe("Traveler", () => {
     expect(traveler12.displayArray.length).to.equal(3);
   });
 
+  it("should be able to return the amount spent in the last year", () => {
+    traveler12.createDisplayArray(destinations);
+    expect(traveler12.returnTotalSpent()).to.equal(2277);
+  });
+
   it("should be able to return a new array of past trips", () => {
     traveler12.createDisplayArray(destinations);
     expect(traveler12.createTimeArray("past")).to.deep.equal([

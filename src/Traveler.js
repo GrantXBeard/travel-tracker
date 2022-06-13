@@ -43,6 +43,17 @@ class Traveler {
     }, []);
   }
 
+  returnTotalSpent() {
+    let today = dayjs().format("YYYY/MM/DD");
+    let total = this.displayArray.reduce((acc, cur) => {
+      if (cur.startDate < today && cur.startDate > "2022/01/01") {
+        acc += cur.price;
+      }
+      return acc;
+    }, 0);
+    return total;
+  }
+
   createStatusArray(status) {
     return this.displayArray.filter((trip) => trip.status === status);
   }

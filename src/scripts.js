@@ -17,7 +17,7 @@ const pastTripsButton = document.querySelector(".past-trips-button");
 const currentTripsButton = document.querySelector(".current-trips-button");
 const futureTripsButton = document.querySelector(".future-trips-button");
 const pendingTripsButton = document.querySelector(".pending-trips-button");
-const submitFormButton = document.querySelector(".submit");
+const submitFormButton = document.querySelector(".submit-form");
 const tripsPage = document.querySelector(".trips");
 const formPage = document.querySelector(".create-trip");
 const formWrapper = document.querySelector(".form-wrapper");
@@ -217,6 +217,16 @@ const checkClick = (event) => {
     mockUpDisplay.innerHTML = "";
     removeHidden(formWrapper);
   }
+};
+
+const login = () => {
+  let nav = document.querySelector("nav");
+  let welcome = document.querySelector(".welcome-wrapper");
+  let arrowOne = document.querySelector(".one");
+
+  removeHidden(nav);
+  removeHidden(welcome);
+  removeHidden(tripsPage);
 };
 
 const addHidden = (variable) => {

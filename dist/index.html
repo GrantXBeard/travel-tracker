@@ -8,20 +8,20 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav class="hidden">
         <button class="trips-button">MY TRIPS</button>
         <button class="create-button">PLAN A TRIP</button>
       </nav>
-      <p class="arrow">↙</p>
-      <section class="welcome-wrapper">
+      <p class="arrow one hidden">↙</p>
+      <section class="welcome-wrapper hidden">
         <h2 class="welcome">Welcome back Username 😵‍💫</h2>
         <p class="total"></p>
       </section>
-      <p class="arrow">↗</p>
+      <p class="arrow two">↗</p>
       <h1>Travel Tracker</h1>
     </header>
     <main>
-      <section class="trips">
+      <section class="trips hidden">
         <section class="trip-choice-buttons">
           <button class="all-trips-button">ALL TRIPS</button>
           <button class="past-trips-button">PAST TRIPS</button>
@@ -34,10 +34,38 @@
           <article class="saved-cards-grid"></article>
         </section>
       </section>
-      <section class="create-trip hidden">
+      <section class="create-trip">
         <section class="form-wrapper">
-          <h2 class="hidden">Hello!</h2>
-          <form class="add-trip-form" id="tripPlanner">
+          <section class="login-wrapper">
+            <p class="login-arrow">↴</p>
+            <h2 class="hello">Hello!</h2>
+            <form class="login" id="login">
+              <label for="userName">Username:</label>
+              <input
+                class="user-Name"
+                name="userName"
+                id="userName"
+                type="text"
+                required
+              />
+              <label for="password">Password:</label>
+              <input
+                class="password"
+                name="password"
+                id="password"
+                type="text"
+                required
+              />
+              <input
+                role="button"
+                class="submit-login"
+                type="submit"
+                value="Submit Info!"
+              />
+            </form>
+          </section>
+
+          <form class="add-trip-form hidden" id="tripPlanner">
             <label for="destination">Choose a destination</label>
             <select
               class="destination"
@@ -77,7 +105,7 @@
             />
             <input
               role="button"
-              class="submit"
+              class="submit-form"
               type="submit"
               value="Submit Data!"
             />

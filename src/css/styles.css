@@ -22,7 +22,13 @@ h1 {
 }
 
 .arrow {
-  font-size: 20vh;
+  font-size: 175px;
+}
+
+.login-arrow {
+  margin-top: -10px;
+  margin-bottom: -10px;
+  font-size: 175px;
 }
 
 .trips-button,
@@ -108,6 +114,13 @@ h1 {
   background-color: #ffd2be;
   width: 400px;
   height: 400px;
+}
+
+.login-wrapper,
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .add-trip-form {

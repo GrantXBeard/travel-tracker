@@ -3,8 +3,8 @@ import { reloadData } from "./scripts.js";
 let apiTravelersData, apiTripsData, apiDestinationsDataObj;
 
 const fetchData = (dataSet) => {
-  return fetch(`http://localhost:3001/api/v1/${dataSet}`).then((response) =>
-    response.json()
+  return fetch(`http://localhost:3001/api/v1/${dataSet}`).then((res) =>
+    res.json()
   );
 };
 

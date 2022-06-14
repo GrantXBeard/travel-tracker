@@ -1,6 +1,6 @@
 # FitLit
 
-Travel Tracker is an application designed for keeping track of your adventures as well as plan new ones.
+Travel Tracker is an application designed for keeping track of your adventures. Keep track of past tips and upcoming trips as well as create new trips. Travel tracker also lets you keep track of your travel costs.
 
 ### Table of Contents
 

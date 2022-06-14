@@ -7,9 +7,14 @@ import TripsRepository from "../src/TripsRepository";
 import Traveler from "../src/Traveler.js";
 
 //Global variables//
-let currentTraveler, tripsRepository, destinationsArray, formDataObj;
+let currentTraveler,
+  travelersRepository,
+  tripsRepository,
+  destinationsArray,
+  formDataObj;
 
 //Query Selectors//
+const submitLogin = document.querySelector(".submit-login");
 const showTripsButton = document.querySelector(".trips-button");
 const showFormButton = document.querySelector(".create-button");
 const allTripsButton = document.querySelector(".all-trips-button");
@@ -26,6 +31,11 @@ const mockUpDisplay = document.querySelector(".display-submission");
 //Event Listeners//
 window.addEventListener("load", (event) => {
   loadData();
+});
+
+submitLogin.addEventListener("click", (event) => {
+  event.preventDefault();
+  checkLogin();
 });
 
 showTripsButton.addEventListener("click", (event) => {
@@ -69,26 +79,50 @@ formPage.addEventListener("click", (event) => {
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 8;
       const [travelersData, tripsData, destinationsDataObj] = data;
       destinationsArray = destinationsDataObj.destinations;
-      const travelersRepository = new TravelersRepository(
-        travelersData.travelers
-      );
-      const currentTravelerData = travelersRepository.getSingleTraveler(id);
+      travelersRepository = new TravelersRepository(travelersData.travelers);
       tripsRepository = new TripsRepository(tripsData.trips);
-      const currentTravelerTrips = tripsRepository.getTrips(id);
-      currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
-      return { currentTraveler, destinationsArray };
-    })
-    .then(({ currentTraveler, destinationsArray }) => {
-      startApplication(currentTraveler, destinationsArray);
     })
     .catch((error) => console.log(`There has been an error! ${error}`));
 };
 
+const checkLogin = () => {
+  const login = document.querySelector(".login");
+  const userName = document.querySelector(".user-name");
+  const password = document.querySelector(".password");
+  const id = getIdNum(userName);
+  const idsArray = createIdArray();
+
+  if (idsArray.includes(id) && password.value === "travel") {
+    const currentTravelerData = travelersRepository.getSingleTraveler(id);
+    const currentTravelerTrips = tripsRepository.getTrips(id);
+    currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
+    beginLogin();
+    startApplication(currentTraveler, destinationsArray);
+    removeHidden(formPage);
+  } else {
+    alert("Please enter a valid Username and Password ✌️");
+    login.reset();
+  }
+};
+
+const createIdArray = () => {
+  return travelersRepository.travelers.map((traveler) => traveler.id);
+};
+
+const getIdNum = (userName) => {
+  let string = userName.value.split("");
+  let length = string.length;
+  let id2 = length - 1;
+  let id1 = length - 2;
+  let first = string[id1];
+  let second = string[id2];
+  let value = parseInt(first + second);
+  return value;
+};
+
 export const reloadData = () => {
-  console.log("hi");
   fetchAll().then((data) => {
     const [travelersData, tripsData, destinationsDataObj] = data;
     const travelersRepository = new TravelersRepository(
@@ -219,14 +253,19 @@ const checkClick = (event) => {
   }
 };
 
-const login = () => {
+const beginLogin = () => {
   let nav = document.querySelector("nav");
   let welcome = document.querySelector(".welcome-wrapper");
   let arrowOne = document.querySelector(".one");
+  let login = document.querySelector(".login-wrapper");
+  let tripForm = document.querySelector(".add-trip-form");
 
   removeHidden(nav);
   removeHidden(welcome);
+  removeHidden(arrowOne);
   removeHidden(tripsPage);
+  removeHidden(tripForm);
+  addHidden(login);
 };
 
 const addHidden = (variable) => {

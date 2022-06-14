@@ -31,7 +31,9 @@ export const postNewTrip = (formData) => {
     headers: { "Content-type": "application/json" },
   })
     .then((res) => throwError(res))
-    .then((json) => reloadData())
+    .then((json) => {
+      reloadData();
+    })
     .catch((error) => {
       console.log(error.message);
       displayErrorMessage(error);

@@ -20,7 +20,7 @@ const pendingTripsButton = document.querySelector(".pending-trips-button");
 const submitFormButton = document.querySelector(".submit");
 const tripsPage = document.querySelector(".trips");
 const formPage = document.querySelector(".create-trip");
-const form = document.querySelector(".form-wrapper");
+const formWrapper = document.querySelector(".form-wrapper");
 const mockUpDisplay = document.querySelector(".display-submission");
 
 //Event Listeners//
@@ -41,15 +41,15 @@ allTripsButton.addEventListener("click", (event) => {
 });
 
 pastTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createPastArray());
+  displayTrips(currentTraveler.createTimeArray("past"));
 });
 
 currentTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createPresentArray());
+  displayTrips(currentTraveler.createTimeArray("present"));
 });
 
 futureTripsButton.addEventListener("click", (event) => {
-  displayTrips(currentTraveler.createFutureArray());
+  displayTrips(currentTraveler.createTimeArray("future"));
 });
 
 pendingTripsButton.addEventListener("click", (event) => {
@@ -69,7 +69,7 @@ formPage.addEventListener("click", (event) => {
 const loadData = () => {
   fetchAll()
     .then((data) => {
-      const id = 11;
+      const id = 8;
       const [travelersData, tripsData, destinationsDataObj] = data;
       destinationsArray = destinationsDataObj.destinations;
       const travelersRepository = new TravelersRepository(
@@ -88,9 +88,9 @@ const loadData = () => {
 };
 
 export const reloadData = () => {
+  console.log("hi");
   fetchAll().then((data) => {
     const [travelersData, tripsData, destinationsDataObj] = data;
-
     const travelersRepository = new TravelersRepository(
       travelersData.travelers
     );
@@ -99,21 +99,25 @@ export const reloadData = () => {
     );
     tripsRepository = new TripsRepository(tripsData.trips);
     const currentTravelerTrips = tripsRepository.getTrips(currentTraveler.id);
+    currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
     startApplication(currentTraveler, destinationsArray);
+    showtrips();
   });
 };
 
 const startApplication = (user, destinationsArray) => {
   addDestinationListToForm(getDestinationList());
-  showWelcome(user);
   user.createDisplayArray(destinationsArray);
+  showWelcome(user);
   displayTrips(user.displayArray);
   console.log(user);
 };
 
 const showWelcome = (user) => {
-  let welcome = document.querySelector(".welcome");
+  const welcome = document.querySelector(".welcome");
+  const total = document.querySelector(".total");
   welcome.innerText = `Welcome back ${user.returnUserFirstName()}`;
+  total.innerText = `Total spent this year: $${user.returnTotalSpent()}`;
 };
 
 const getDestinationList = () => {
@@ -197,16 +201,21 @@ const showMockUp = (formObj) => {
   <button class="form-choice" id="request">Submit Request</button>
   <button class="form-choice" id="cancel">Cancel</button>`;
   mockUpDisplay.innerHTML = newHTML;
-  addHidden(form);
+  addHidden(formWrapper);
 };
 
 const checkClick = (event) => {
+  let form = document.querySelector(".add-trip-form");
   if (event.target.id === "request") {
+    alert("Thank you! 😎");
     postNewTrip(formDataObj);
+    form.reset();
+    removeHidden(formWrapper);
+    mockUpDisplay.innerHTML = "";
   }
   if (event.target.id === "cancel") {
     mockUpDisplay.innerHTML = "";
-    removeHidden(form);
+    removeHidden(formWrapper);
   }
 };
 

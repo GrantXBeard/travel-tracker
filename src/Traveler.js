@@ -43,23 +43,32 @@ class Traveler {
     }, []);
   }
 
+  returnTotalSpent() {
+    let today = dayjs().format("YYYY/MM/DD");
+    let total = this.displayArray.reduce((acc, cur) => {
+      if (cur.startDate < today && cur.startDate > "2022/01/01") {
+        acc += cur.price;
+      }
+      return acc;
+    }, 0);
+    return total;
+  }
+
   createStatusArray(status) {
     return this.displayArray.filter((trip) => trip.status === status);
   }
 
-  createPastArray() {
+  createTimeArray(time) {
     let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.startDate < today);
-  }
-
-  createPresentArray() {
-    let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.startDate === today);
-  }
-
-  createFutureArray() {
-    let today = dayjs().format("YYYY/MM/DD");
-    return this.displayArray.filter((trip) => trip.startDate > today);
+    if (time === "past") {
+      return this.displayArray.filter((trip) => trip.startDate < today);
+    }
+    if (time === "present") {
+      return this.displayArray.filter((trip) => trip.startDate === today);
+    }
+    if (time === "future") {
+      return this.displayArray.filter((trip) => trip.startDate > today);
+    }
   }
 }
 

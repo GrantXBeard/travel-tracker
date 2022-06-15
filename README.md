@@ -57,11 +57,11 @@ npm test
 
 ## Illustrations
 
-![Travel Tracker gif](https://media.giphy.com/media/kiAPxM21iJUPXojx50/giphy.gif)
+![Travel Tracker gif]()
 
 description
 
-![Travel Tracker gif](https://media.giphy.com/media/WCv4SlfVogA0rQQXEG/giphy.gif)
+![Travel Tracker gif]()
 
 description
 

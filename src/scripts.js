@@ -100,7 +100,7 @@ const checkLogin = () => {
     currentTraveler = new Traveler(currentTravelerData, currentTravelerTrips);
     beginLogin();
     startApplication(currentTraveler, destinationsArray);
-    removeHidden(formPage);
+    // removeHidden(formPage);
   } else {
     alert("Please enter a valid Username and Password ✌️");
     login.reset();
@@ -266,6 +266,7 @@ const beginLogin = () => {
   removeHidden(tripsPage);
   removeHidden(tripForm);
   addHidden(login);
+  addHidden(formPage);
 };
 
 const addHidden = (variable) => {

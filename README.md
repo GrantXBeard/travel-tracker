@@ -17,7 +17,7 @@ Travel Tracker is an application designed for keeping track of your adventures. 
 
 ## Project Specs
 
-Travel Tracker is an application built in week 10 of [Turing School of Software and Design](https://turing.io/). The goal of this group [project](https://frontend.turing.edu/projects/travel-tracker.html) was to solidify and demonstrate the understanding of:
+Travel Tracker is a project application built in mod 2 at [Turing School of Software and Design](https://turing.io/). The goal of this [project](https://frontend.turing.edu/projects/travel-tracker.html) was to solidify and demonstrate the understanding of:
 
 - Creating a robust testing suite using TDD
 - Utilizing Lighthouse and Wave for Accessibility
@@ -57,15 +57,14 @@ npm test
 
 ## Illustrations
 
-![Travel Tracker gif]()
+![Travel Tracker gif](https://media3.giphy.com/media/A0VyHRHu2jRPZLz1En/giphy.gif?cid=790b761195353390a9b50f1b72a84ce4a0e5d5a33b15cf39&rid=giphy.gif&ct=g)
+Login page
 
-description
+![Travel Tracker gif](https://media1.giphy.com/media/3XEkcF1SzcORaY1kty/giphy.gif?cid=790b7611732ff22aebf0b45f5dafe2d61cf8b21fec137019&rid=giphy.gif&ct=g)
+Browse trips
 
-![Travel Tracker gif]()
-
-description
-
-**[Back to top](#table-of-contents)**
+![Travel Tracker gif](https://media1.giphy.com/media/hVwa9VGf6fTI4wwRDF/giphy.gif?cid=790b7611cdca4f9337ddcccfef86e47907a06383de88f34b&rid=giphy.gif&ct=g)
+Create a trip
 
 ## Project Management
 
@@ -74,7 +73,7 @@ description
 ## Future Features
 
 - Refactor the existing CSS into Sass to create a modular design codebase
--
+- add a second user type of Agent that has the ability to approve trips and add destinations.
 
 ## Contributors
 
